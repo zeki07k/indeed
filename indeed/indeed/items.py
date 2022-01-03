@@ -1,0 +1,14 @@
+# Define here the models for your scraped items
+#
+# See documentation in:
+# https://docs.scrapy.org/en/latest/topics/items.html
+
+import scrapy
+
+
+
+class IndeedItem(scrapy.Item):
+    USER_AGENT = "whatever the user agent string was"
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    pass
