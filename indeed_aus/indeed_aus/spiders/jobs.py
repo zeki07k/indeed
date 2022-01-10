@@ -8,7 +8,7 @@ class JobsSpider(scrapy.Spider):
     name = 'jobs'
     allowed_domains = ['indeed.com']
     start_urls = [
-        'https://www.indeed.com/jobs?as_and&as_phr&as_any&as_not=gigs&as_ttl&as_cmp&jt=all&st&salary&radius=6&l=90013&fromage=any&limit=10&sort&psf=advsrch&from=advancedsearch&vjk=dc10e196e15b8da0',
+        'https://www.indeed.com/jobs?as_and&as_phr&as_any&as_not=gigs&as_ttl&as_cmp&jt=all&st&salary&radius=6&l=78714&fromage=any&limit=10&sort&psf=advsrch&from=advancedsearch&vjk=dc10e196e15b8da0',
         'https://www.indeed.com/cmp/']
     base_url = 'https://www.indeed.com/viewjob?jk='
     next_url = 'https://www.indeed.com/'
