@@ -5,6 +5,9 @@
 
 --> scrapy crawl jobs -o la.csv
 
+--> extracted skills results are in the skills.csv
+--> crawling python scripts are in the folders. For instance: indeed_la > indeed_la > spiders > jobs.py
+
  # Conceptual Questions 1
 ## How do you scale your project to scrape all job postings daily from indeed?
  
@@ -34,9 +37,17 @@
 ## Did you do any preprocessing or data cleaning on the job descriptions?
    ** **
     Yes, I did
-    
-
-  
+## What are the shortcomings of this approach?
+   ** ** 
+    Sometimes you may lost meaningfull data because of data volume. If dataset is about specific domain such as economy or biology. You need to increase knowledge of these branches and need to consult the SME(subject matter expert).
+## How would you improve the outcomes?
+   ** **
+    Adding new skills to the skill list may give more extracted skills. 
+## (Optional) How would you use NLP to improve the result? (feel free to implement if you have time & resources)
+   ** ** 
+   NLP NER (Name Entity Recognition) enhances the result by Spacy etc. Thanks to NER rules, we can define the words structure (n-grams) then  matcher can identify the skills. 
+   Ultimately, Regardless of which NLP algorithm you use, the most crucial thing is teh Data Quality, In order to get good results from the ML/DL algorithm. 
+   
 
 
 
