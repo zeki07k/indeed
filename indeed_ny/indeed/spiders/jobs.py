@@ -7,8 +7,7 @@ class JobsSpider(scrapy.Spider):
     start = datetime.now()
     name = 'jobs'
     allowed_domains = ['indeed.com']
-    start_urls = ['https://www.indeed.com/jobs?q=-gigs&l=90013&fromage=3&radius=6&sort=date&vjk=3bfd34d3edfce44a',
-                  'https://www.indeed.com/cmp/Ucla-Health']
+    start_urls = ['https://www.indeed.com/jobs?l=New%20York,%20NY%2010006&radius=3&fromage=3&vjk=bbfaee5c3234326a']
     base_url = 'https://www.indeed.com/viewjob?jk='
     next_url = 'https://www.indeed.com/'
     rate_url = 'https://www.indeed.com/cmp/'
@@ -17,10 +16,10 @@ class JobsSpider(scrapy.Spider):
 
         next_page_partial_url = response.css(
             '#resultsCol > nav > div > ul > li:nth-child(6) > a::attr(href)').extract_first()
-
         jks = response.css('#mosaic-provider-jobcards a::attr(data-jk)').extract()
         counter = 0
         for jk in jks:
+            print('JK', jk)
             job_url = self.base_url + jk
             yield scrapy.Request(job_url, callback=self.parse_job)
             try:
@@ -39,16 +38,17 @@ class JobsSpider(scrapy.Spider):
                 break
 
         next_page_url = self.next_url + next_page_partial_url
-
         yield scrapy.Request(next_page_url, callback=self.parse)
 
     def parse_rate(self, response):
-        for i in response.css('span::text').extract():
-            if i.endswith('stars.'):
-                self.rate = i[:4]
+        for rate in response.css('span::text').extract():
+            if rate.endswith('stars.'):
+                self.rate = rate[:4]
                 return self.rate
 
     def parse_job(self, response):
+
+        # company_name = response.css('.jobsearch-CompanyReview--heading::text').extract_first()
 
         jk = re.sub('[^\s.](?:[^?.]|\.(?! ))*\?', '', response.request.url)
         date = response.css('.jobsearch-JobMetadataFooter > *:nth-child(2)::text').extract_first()
@@ -76,7 +76,7 @@ class JobsSpider(scrapy.Spider):
 
         try:
             zip_code = \
-            response.css('.jobsearch-jobLocationHeader-location::text').extract_first().split(',')[2].split(' ')[2]
+                response.css('.jobsearch-jobLocationHeader-location::text').extract_first().split(',')[2].split(' ')[2]
         except:
             zip_code = None
 
